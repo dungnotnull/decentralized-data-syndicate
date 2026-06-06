@@ -59,31 +59,31 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 
 ### Tasks
 - [x] Implement Buyer Agent core:
-  - [ ] YAML config loader
+  - [x] YAML config loader
   - [ ] `QueryTranslator` (Ollama/Claude/OpenAI pluggable backend)
-  - [ ] Libp2p host setup + GossipSub publisher for `DataNeedSpec`
+  - [x] Libp2p host setup + GossipSub publisher for `DataNeedSpec`
   - [ ] `DataOffer` receiver and display
   - [ ] Escrow `lockFunds` transaction signer
   - [ ] `confirmReceipt` transaction signer
 - [x] Implement Seller Agent core:
-  - [ ] YAML config loader
-  - [ ] Libp2p host + GossipSub subscriber
-  - [ ] Data catalog manager (local SQLite: dataset metadata, file paths, tags)
-  - [ ] Offer matching logic (keyword + embedding cosine similarity)
-  - [ ] Stubbed quality scorer (returns hardcoded quality report for now)
-  - [ ] CLI human approval gate (`input("Approve? [y/n]")` for MVP)
-  - [ ] AES-256-GCM data encryptor
-  - [ ] Libp2p stream data sender
+  - [x] YAML config loader
+  - [x] Libp2p host + GossipSub subscriber
+  - [x] Data catalog manager (local SQLite: dataset metadata, file paths, tags)
+  - [x] Offer matching logic (keyword + embedding cosine similarity)
+  - [x] Stubbed quality scorer (returns hardcoded quality report for now)
+  - [x] CLI human approval gate (`input("Approve? [y/n]")` for MVP)
+  - [x] AES-256-GCM data encryptor
+  - [x] Libp2p stream data sender
 - [x] Implement Escrow Smart Contract:
   - [ ] `lockFunds(datasetId, seller, amount)` â€” locks ERC-20 token in escrow
   - [ ] `confirmReceipt(datasetId)` â€” buyer confirms; releases to seller
   - [ ] `refundBuyer(datasetId)` â€” time-locked fallback if buyer absent
-  - [ ] Events: `FundsLocked`, `FundsReleased`, `FundsRefunded`
-  - [ ] Unit tests (Hardhat/Mocha): all state transitions
+  - [x] Events: `FundsLocked`, `FundsReleased`, `FundsRefunded`
+  - [x] Unit tests (Hardhat/Mocha): all state transitions
 - [x] Implement data transfer pipeline:
-  - [ ] X25519 ECDH key exchange over Libp2p
-  - [ ] AES-256-GCM encrypt/decrypt with shared secret
-  - [ ] Libp2p stream protocol for file transfer
+  - [x] X25519 ECDH key exchange over Libp2p
+  - [x] AES-256-GCM encrypt/decrypt with shared secret
+  - [x] Libp2p stream protocol for file transfer
 - [x] Write integration test: buyerâ†’broadcastâ†’sellerâ†’approvalâ†’escrowâ†’transferâ†’settlement on localhost
 
 ### Deliverables
@@ -114,24 +114,24 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 
 ### Tasks
 - [x] Build ZK quality attestation circuit (circom 2.0):
-  - [ ] Input: dataset hash, row count, null counts per column, schema column hash array
-  - [ ] Prove: row count â‰¥ `min_rows`; null rate â‰¤ `max_null_rate`; schema hash matches declared spec
-  - [ ] Compile circuit, generate trusted setup (Powers of Tau ceremony for development)
-  - [ ] Generate and export Solidity verifier contract
-  - [ ] Write test vectors for valid and invalid datasets
+  - [x] Input: dataset hash, row count, null counts per column, schema column hash array
+  - [x] Prove: row count â‰¥ `min_rows`; null rate â‰¤ `max_null_rate`; schema hash matches declared spec
+  - [x] Compile circuit, generate trusted setup (Powers of Tau ceremony for development)
+  - [x] Generate and export Solidity verifier contract
+  - [x] Write test vectors for valid and invalid datasets
 - [x] Integrate ZK verifier into Escrow contract:
   - [ ] Add `IZKVerifier` interface reference
   - [ ] `lockFunds` flow: buyer submits proof â†’ contract verifies â†’ escrow created
-  - [ ] Handle failed proof: revert with descriptive error
+  - [x] Handle failed proof: revert with descriptive error
 - [x] Implement real Local SLM quality scorer:
-  - [ ] Load dataset sample (first 200 rows)
-  - [ ] Build prompt template with few-shot examples for Phi-3-mini
-  - [ ] Parse structured JSON output: null rate, schema match, duplicate rate, coherence score
-  - [ ] Implement pre-screening: if SLM score < 0.6, skip ZK proof generation (save compute)
+  - [x] Load dataset sample (first 200 rows)
+  - [x] Build prompt template with few-shot examples for Phi-3-mini
+  - [x] Parse structured JSON output: null rate, schema match, duplicate rate, coherence score
+  - [x] Implement pre-screening: if SLM score < 0.6, skip ZK proof generation (save compute)
 - [x] Implement semantic embedding matcher:
   - [ ] Embed buyer `DataNeedSpec.description` with BAAI/bge-small-en-v1.5
-  - [ ] Embed seller catalog entries at index time
-  - [ ] Cosine similarity ranking with configurable threshold
+  - [x] Embed seller catalog entries at index time
+  - [x] Cosine similarity ranking with configurable threshold
 - [x] Performance profiling: ZK proof generation time for datasets of 1k, 10k, 100k rows
 - [x] Optimize: parallelize ZK witness generation using Celery workers
 
@@ -164,17 +164,17 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 
 ### Tasks
 - [ ] Implement `QueryTranslator` with all three backends:
-  - [ ] Claude API (Anthropic SDK, prompt caching for repeated query patterns)
-  - [ ] OpenAI GPT-4o API
-  - [ ] Ollama local (default, no API key required)
-  - [ ] Graceful fallback: Claude â†’ OpenAI â†’ Ollama â†’ guided JSON form
+  - [x] Claude API (Anthropic SDK, prompt caching for repeated query patterns)
+  - [x] OpenAI GPT-4o API
+  - [x] Ollama local (default, no API key required)
+  - [x] Graceful fallback: Claude â†’ OpenAI â†’ Ollama â†’ guided JSON form
 - [x] Improve human approval gate:
-  - [ ] Desktop notification (Windows: win10toast; macOS: pync; Linux: notify-send)
-  - [ ] Rich CLI display: ASCII table of ZK-attested stats, seller reputation, price comparison
-  - [ ] Batch approval mode: show multiple pending offers and approve/reject in one interaction
+  - [x] Desktop notification (Windows: win10toast; macOS: pync; Linux: notify-send)
+  - [x] Rich CLI display: ASCII table of ZK-attested stats, seller reputation, price comparison
+  - [x] Batch approval mode: show multiple pending offers and approve/reject in one interaction
 - [x] Build Seller data catalog manager:
-  - [ ] Tag datasets with category ontology (taxonomy defined in SECOND-KNOWLEDGE-BRAIN.md)
-  - [ ] Set per-dataset price floor and transaction limits
+  - [x] Tag datasets with category ontology (taxonomy defined in SECOND-KNOWLEDGE-BRAIN.md)
+  - [x] Set per-dataset price floor and transaction limits
   - [ ] Mark datasets as "available" or "paused"
 - [x] Add on-chain approval event logging (hash of approval + timestamp, not raw content)
 - [x] Deploy to Polygon Mumbai testnet (or current Polygon Amoy testnet)
@@ -207,17 +207,17 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 
 ### Tasks
 - [x] Build crawl4ai-based research crawler:
-  - [ ] ArXiv crawler: `cs.CR` (cryptography), `cs.DB` (databases), `cs.LG` (ML) â€” filter by ZK, privacy-preserving, federated learning keywords
-  - [ ] HuggingFace Papers weekly digest crawler
-  - [ ] Ethereum research forum (ethresear.ch) crawler for ZK and L2 developments
+  - [x] ArXiv crawler: `cs.CR` (cryptography), `cs.DB` (databases), `cs.LG` (ML) â€” filter by ZK, privacy-preserving, federated learning keywords
+  - [x] HuggingFace Papers weekly digest crawler
+  - [x] Ethereum research forum (ethresear.ch) crawler for ZK and L2 developments
 - [x] Build paper summarizer:
-  - [ ] Feed abstract + introduction to local SLM (Phi-3-mini)
-  - [ ] Extract: relevance score, key contribution, applicable component in this project
-  - [ ] Filter: only store papers with relevance score > 0.7
+  - [x] Feed abstract + introduction to local SLM (Phi-3-mini)
+  - [x] Extract: relevance score, key contribution, applicable component in this project
+  - [x] Filter: only store papers with relevance score > 0.7
 - [x] Build SECOND-KNOWLEDGE-BRAIN.md updater:
-  - [ ] Append new papers to the Research Papers table
-  - [ ] Update State-of-the-Art models section if better models are found
-  - [ ] Append dated entry to Knowledge Update Log
+  - [x] Append new papers to the Research Papers table
+  - [x] Update State-of-the-Art models section if better models are found
+  - [x] Append dated entry to Knowledge Update Log
 - [x] Set up weekly cron job (system scheduler or Python `schedule` library)
 - [x] Implement model benchmarker: if a new embedding model appears in HF leaderboards, auto-run cosine similarity benchmark and recommend upgrade if +5% improvement
 
@@ -246,15 +246,15 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 
 ### Tasks
 - [x] Security audit checklist:
-  - [ ] Smart contract: reentrancy, integer overflow, access control, time manipulation
-  - [ ] ZK circuit: constraint soundness review (manual + circom-verify)
-  - [ ] P2P protocol: message authentication (PeerID signature verification)
-  - [ ] Encryption: key derivation, IV uniqueness, AEAD integrity
+  - [x] Smart contract: reentrancy, integer overflow, access control, time manipulation
+  - [x] ZK circuit: constraint soundness review (manual + circom-verify)
+  - [x] P2P protocol: message authentication (PeerID signature verification)
+  - [x] Encryption: key derivation, IV uniqueness, AEAD integrity
 - [x] Fuzz testing: send malformed Protobuf messages to agents; verify graceful rejection
 - [x] Load testing: simulate 50 concurrent buyer broadcasts on local Libp2p network
 - [x] Frontend build (optional MVP):
-  - [ ] Buyer dashboard: broadcast query, view incoming offers, approve/pay
-  - [ ] Seller dashboard: catalog manager, pending approvals, transaction history
+  - [x] Buyer dashboard: broadcast query, view incoming offers, approve/pay
+  - [x] Seller dashboard: catalog manager, pending approvals, transaction history
 - [x] Deploy smart contract to Polygon Amoy testnet (permanent)
 - [x] Package agents as Docker containers with environment variable configuration
 - [ ] Write `docker-compose.yml` for local development (buyer + seller + redis + hardhat node)
@@ -310,3 +310,4 @@ Roughly 17â€“18 hours/week at full-time pace, or 32â€“36 weeks at part
 | Phi-3-mini quality scoring accuracy insufficient | Medium | Medium | Fallback to Claude API for quality scoring; collect labeled dataset for fine-tuning |
 | circom trusted setup ceremony is complex | Low | Medium | Use existing Powers of Tau files from Hermez/Polygon for development; note production needs proper ceremony |
 | Smart contract vulnerability post-audit | Low | Critical | Bug bounty program; time-lock admin upgrade path; conservative escrow limits during launch |
+
