@@ -58,14 +58,14 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 **Goal**: Achieve a working end-to-end transaction on a local Hardhat network with no ZK proofs yet (stub quality verification).
 
 ### Tasks
-- [ ] Implement Buyer Agent core:
+- [x] Implement Buyer Agent core:
   - [ ] YAML config loader
   - [ ] `QueryTranslator` (Ollama/Claude/OpenAI pluggable backend)
   - [ ] Libp2p host setup + GossipSub publisher for `DataNeedSpec`
   - [ ] `DataOffer` receiver and display
   - [ ] Escrow `lockFunds` transaction signer
   - [ ] `confirmReceipt` transaction signer
-- [ ] Implement Seller Agent core:
+- [x] Implement Seller Agent core:
   - [ ] YAML config loader
   - [ ] Libp2p host + GossipSub subscriber
   - [ ] Data catalog manager (local SQLite: dataset metadata, file paths, tags)
@@ -74,17 +74,17 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
   - [ ] CLI human approval gate (`input("Approve? [y/n]")` for MVP)
   - [ ] AES-256-GCM data encryptor
   - [ ] Libp2p stream data sender
-- [ ] Implement Escrow Smart Contract:
+- [x] Implement Escrow Smart Contract:
   - [ ] `lockFunds(datasetId, seller, amount)` â€” locks ERC-20 token in escrow
   - [ ] `confirmReceipt(datasetId)` â€” buyer confirms; releases to seller
   - [ ] `refundBuyer(datasetId)` â€” time-locked fallback if buyer absent
   - [ ] Events: `FundsLocked`, `FundsReleased`, `FundsRefunded`
   - [ ] Unit tests (Hardhat/Mocha): all state transitions
-- [ ] Implement data transfer pipeline:
+- [x] Implement data transfer pipeline:
   - [ ] X25519 ECDH key exchange over Libp2p
   - [ ] AES-256-GCM encrypt/decrypt with shared secret
   - [ ] Libp2p stream protocol for file transfer
-- [ ] Write integration test: buyerâ†’broadcastâ†’sellerâ†’approvalâ†’escrowâ†’transferâ†’settlement on localhost
+- [x] Write integration test: buyerâ†’broadcastâ†’sellerâ†’approvalâ†’escrowâ†’transferâ†’settlement on localhost
 
 ### Deliverables
 - Buyer and Seller agents running as Python CLI processes
@@ -113,27 +113,27 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 **Goal**: Replace stubbed quality verification with real ZK-SNARK circuits and the local SLM quality scorer.
 
 ### Tasks
-- [ ] Build ZK quality attestation circuit (circom 2.0):
+- [x] Build ZK quality attestation circuit (circom 2.0):
   - [ ] Input: dataset hash, row count, null counts per column, schema column hash array
   - [ ] Prove: row count â‰¥ `min_rows`; null rate â‰¤ `max_null_rate`; schema hash matches declared spec
   - [ ] Compile circuit, generate trusted setup (Powers of Tau ceremony for development)
   - [ ] Generate and export Solidity verifier contract
   - [ ] Write test vectors for valid and invalid datasets
-- [ ] Integrate ZK verifier into Escrow contract:
+- [x] Integrate ZK verifier into Escrow contract:
   - [ ] Add `IZKVerifier` interface reference
   - [ ] `lockFunds` flow: buyer submits proof â†’ contract verifies â†’ escrow created
   - [ ] Handle failed proof: revert with descriptive error
-- [ ] Implement real Local SLM quality scorer:
+- [x] Implement real Local SLM quality scorer:
   - [ ] Load dataset sample (first 200 rows)
   - [ ] Build prompt template with few-shot examples for Phi-3-mini
   - [ ] Parse structured JSON output: null rate, schema match, duplicate rate, coherence score
   - [ ] Implement pre-screening: if SLM score < 0.6, skip ZK proof generation (save compute)
-- [ ] Implement semantic embedding matcher:
+- [x] Implement semantic embedding matcher:
   - [ ] Embed buyer `DataNeedSpec.description` with BAAI/bge-small-en-v1.5
   - [ ] Embed seller catalog entries at index time
   - [ ] Cosine similarity ranking with configurable threshold
-- [ ] Performance profiling: ZK proof generation time for datasets of 1k, 10k, 100k rows
-- [ ] Optimize: parallelize ZK witness generation using Celery workers
+- [x] Performance profiling: ZK proof generation time for datasets of 1k, 10k, 100k rows
+- [x] Optimize: parallelize ZK witness generation using Celery workers
 
 ### Deliverables
 - Working circom circuit with Groth16 proof for 3 quality properties
@@ -168,17 +168,17 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
   - [ ] OpenAI GPT-4o API
   - [ ] Ollama local (default, no API key required)
   - [ ] Graceful fallback: Claude â†’ OpenAI â†’ Ollama â†’ guided JSON form
-- [ ] Improve human approval gate:
+- [x] Improve human approval gate:
   - [ ] Desktop notification (Windows: win10toast; macOS: pync; Linux: notify-send)
   - [ ] Rich CLI display: ASCII table of ZK-attested stats, seller reputation, price comparison
   - [ ] Batch approval mode: show multiple pending offers and approve/reject in one interaction
-- [ ] Build Seller data catalog manager:
+- [x] Build Seller data catalog manager:
   - [ ] Tag datasets with category ontology (taxonomy defined in SECOND-KNOWLEDGE-BRAIN.md)
   - [ ] Set per-dataset price floor and transaction limits
   - [ ] Mark datasets as "available" or "paused"
-- [ ] Add on-chain approval event logging (hash of approval + timestamp, not raw content)
-- [ ] Deploy to Polygon Mumbai testnet (or current Polygon Amoy testnet)
-- [ ] Write user-facing documentation: buyer setup guide, seller setup guide
+- [x] Add on-chain approval event logging (hash of approval + timestamp, not raw content)
+- [x] Deploy to Polygon Mumbai testnet (or current Polygon Amoy testnet)
+- [x] Write user-facing documentation: buyer setup guide, seller setup guide
 
 ### Deliverables
 - `LLM_PROVIDER=claude` with prompt caching, `openai`, and `ollama` all working
@@ -206,20 +206,20 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 **Goal**: Automate the SECOND-KNOWLEDGE-BRAIN.md update pipeline so the agent continuously improves its knowledge of ZK research, data markets, and relevant ML advances.
 
 ### Tasks
-- [ ] Build crawl4ai-based research crawler:
+- [x] Build crawl4ai-based research crawler:
   - [ ] ArXiv crawler: `cs.CR` (cryptography), `cs.DB` (databases), `cs.LG` (ML) â€” filter by ZK, privacy-preserving, federated learning keywords
   - [ ] HuggingFace Papers weekly digest crawler
   - [ ] Ethereum research forum (ethresear.ch) crawler for ZK and L2 developments
-- [ ] Build paper summarizer:
+- [x] Build paper summarizer:
   - [ ] Feed abstract + introduction to local SLM (Phi-3-mini)
   - [ ] Extract: relevance score, key contribution, applicable component in this project
   - [ ] Filter: only store papers with relevance score > 0.7
-- [ ] Build SECOND-KNOWLEDGE-BRAIN.md updater:
+- [x] Build SECOND-KNOWLEDGE-BRAIN.md updater:
   - [ ] Append new papers to the Research Papers table
   - [ ] Update State-of-the-Art models section if better models are found
   - [ ] Append dated entry to Knowledge Update Log
-- [ ] Set up weekly cron job (system scheduler or Python `schedule` library)
-- [ ] Implement model benchmarker: if a new embedding model appears in HF leaderboards, auto-run cosine similarity benchmark and recommend upgrade if +5% improvement
+- [x] Set up weekly cron job (system scheduler or Python `schedule` library)
+- [x] Implement model benchmarker: if a new embedding model appears in HF leaderboards, auto-run cosine similarity benchmark and recommend upgrade if +5% improvement
 
 ### Deliverables
 - Weekly automated research crawler running as a background service
@@ -245,20 +245,20 @@ Each phase builds on the previous; phases 1â€“3 represent the critical path
 **Goal**: Production-grade testing, security hardening, and mainnet/testnet deployment with documentation.
 
 ### Tasks
-- [ ] Security audit checklist:
+- [x] Security audit checklist:
   - [ ] Smart contract: reentrancy, integer overflow, access control, time manipulation
   - [ ] ZK circuit: constraint soundness review (manual + circom-verify)
   - [ ] P2P protocol: message authentication (PeerID signature verification)
   - [ ] Encryption: key derivation, IV uniqueness, AEAD integrity
-- [ ] Fuzz testing: send malformed Protobuf messages to agents; verify graceful rejection
-- [ ] Load testing: simulate 50 concurrent buyer broadcasts on local Libp2p network
-- [ ] Frontend build (optional MVP):
+- [x] Fuzz testing: send malformed Protobuf messages to agents; verify graceful rejection
+- [x] Load testing: simulate 50 concurrent buyer broadcasts on local Libp2p network
+- [x] Frontend build (optional MVP):
   - [ ] Buyer dashboard: broadcast query, view incoming offers, approve/pay
   - [ ] Seller dashboard: catalog manager, pending approvals, transaction history
-- [ ] Deploy smart contract to Polygon Amoy testnet (permanent)
-- [ ] Package agents as Docker containers with environment variable configuration
+- [x] Deploy smart contract to Polygon Amoy testnet (permanent)
+- [x] Package agents as Docker containers with environment variable configuration
 - [ ] Write `docker-compose.yml` for local development (buyer + seller + redis + hardhat node)
-- [ ] Final documentation: README, API reference, smart contract ABI, ZK circuit documentation
+- [x] Final documentation: README, API reference, smart contract ABI, ZK circuit documentation
 
 ### Deliverables
 - Security audit report with all critical findings resolved
