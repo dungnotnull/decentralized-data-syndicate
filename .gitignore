@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+node_modules/
+artifacts/
+cache/
+*.log
+seller_catalog.db
+.hardhat/
+

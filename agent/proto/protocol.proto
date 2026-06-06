@@ -1,0 +1,53 @@
+syntax = "proto3";
+package decentralized_data_syndicate;
+
+message DataNeedSpec {
+  string request_id = 1;
+  string data_type = 2;
+  uint32 min_rows = 3;
+  uint32 max_null_rate_permille = 4;
+  repeated string required_columns = 5;
+  uint32 budget_usdc_milli = 6;
+  string description = 7;
+  uint64 timestamp = 8;
+}
+
+message DataOffer {
+  string offer_id = 1;
+  string request_id = 2;
+  string dataset_id = 3;
+  string seller_peer_id = 4;
+  string seller_wallet = 5;
+  uint32 price_usdc_milli = 6;
+  bytes zk_proof = 7;
+  QualityReport public_quality = 8;
+  string description = 9;
+  uint64 timestamp = 10;
+}
+
+message QualityReport {
+  uint32 row_count = 1;
+  uint32 null_rate_permille = 2;
+  bytes schema_hash = 3;
+  uint32 entropy_score_permille = 4;
+  bool schema_match = 5;
+}
+
+message ApprovalEvent {
+  string offer_id = 1;
+  string dataset_id = 2;
+  string buyer_wallet = 3;
+  string seller_wallet = 4;
+  uint64 price_usdc_milli = 5;
+  bool approved = 6;
+  uint64 timestamp = 7;
+  bytes approval_hash = 8;
+}
+
+message PurchaseRequest {
+  string request_id = 1;
+  string offer_id = 2;
+  string buyer_wallet = 3;
+  bytes buyer_public_key = 4;
+  uint64 timestamp = 5;
+}

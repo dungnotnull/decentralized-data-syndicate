@@ -1,0 +1,45 @@
+﻿# Decentralized Data Syndicate — Agent Configuration
+# Place this file at ~/.dds/config.yaml or set DDS_CONFIG_PATH
+
+# Identity
+agent:
+  role: buyer | seller
+  peer_name: "my-agent"
+  wallet_address: "0x..."
+  private_key_env: "DDS_WALLET_KEY"  # env var holding key
+
+# Networking
+network:
+  listen_port: 9090
+  bootstrap_peers: []
+  mdns_enabled: true
+  relay_enabled: false
+
+# Blockchain
+blockchain:
+  chain_id: 31337          # 31337=Hardhat, 137=Polygon, 42161=Arbitrum
+  rpc_url: "http://127.0.0.1:8545"
+  escrow_contract: "0x..."
+  token_contract: "0x..."
+
+# Local SLM (quality scoring)
+llm:
+  provider: ollama         # claude | openai | ollama
+  ollama_base_url: "http://localhost:11434"
+  claude_api_key_env: "CLAUDE_API_KEY"
+  openai_api_key_env: "OPENAI_API_KEY"
+  default_model: "phi3:mini"
+
+# Quality thresholds (seller-side pre-filter)
+quality:
+  min_coherence_score: 0.6
+  max_null_rate: 0.05
+
+# Data catalog paths (seller only)
+catalog:
+  db_path: "./data/catalog.db"
+  datasets_dir: "./data/datasets"
+
+# Encryption
+encryption:
+  key_derivation_salt_env: "DDS_SALT"
