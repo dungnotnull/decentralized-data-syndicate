@@ -73,13 +73,13 @@ python agent/src/buyer_agent.py
 
 ## Project Structure
 ```text
-??? agent/            # AI Agents & P2P Logic
-?   ??? proto/        # Protobuf Message Definitions
-?   ??? src/          # Buyer, Seller, & Crypto implementation
-??? contracts/        # Solidity Escrow & Token contracts
-??? zkproof/          # Circom circuits & Proof generation
-??? docs/             # Architecture Decision Records (ADRs)
-??? .env              # Environment variables
+ agent/            # AI Agents & P2P Logic
+    proto/        # Protobuf Message Definitions
+    src/          # Buyer, Seller, & Crypto implementation
+    contracts/        # Solidity Escrow & Token contracts
+    zkproof/          # Circom circuits & Proof generation
+    docs/             # Architecture Decision Records (ADRs)
+ .env              # Environment variables
 ```
 
 ## License
